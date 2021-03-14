@@ -1,5 +1,7 @@
 # Vefforritun 2, 2021, verkefni 4
 
+## Heroku linkur https://jardskjaldtar.herokuapp.com/
+
 [Verkefnið byggir á verkefni 9 í vefforritun 1, 2020](https://github.com/vefforritun/vef1-2020-v9-synilausn).
 
 [Kynning á verkefni](https://youtu.be/U8K0m9zRxHk).
