@@ -1,49 +1,39 @@
-# Vefforritun 2, 2021, verkefni 4
+# Web Development 2, 2021, Assignment 4
 
-## Heroku linkur https://jardskjaldtar.herokuapp.com/
+## Heroku Link: [https://jardskjaldtar.herokuapp.com/](https://jardskjaldtar.herokuapp.com/)
 
+In this assignment, you are required to implement a server that acts as a proxy between the client and the USGS (United States Geological Survey) data source. This proxy should cache data between requests using Redis.
 
+Additionally, you should implement the ability to retrieve all data based on time intervals and magnitudes. In the `index.html` file, a list of links for each type is provided. You need to implement frontend functionality that retrieves the correct data through the proxy service. Proxy service requests should accept query string parameters, e.g., `/proxy?period=hour&type=significant`, and return data along with additional metadata about the request.
 
-Bæta skal við server sem situr á milli beiðna frá client til USGS (proxyar beiðnir), þessi proxy notar redis til að cache gögn á milli fyrirspurna.
+### Request Metadata
 
-Einnig skal bæta við möguleikum á að sækja öll gögn eftir tímabili og stærðargráðu, í `index.html` er búið að setja upp lista af tenglum á hverja týpu. Útfæra þarf virkni í framenda sem sækir rétt gögn gegnum proxy þjónustu. Beiðnir á proxy þjónustu ættu að taka við querystring breytum, t.d. `/proxy?period=hour&type=significant` og skila gögnum ásamt auka lýsigögnum um fyrirspurn.
+Metadata about requests should include two values:
 
-### Lýsigögn um fyrirspurn
+1. Whether the data was retrieved from the cache or not.
+2. The time it took to retrieve the data in seconds (whether from cache or fetched), see `./src/time.js`.
 
-Lýsigögn um fyrirspurn innihalda tvö gildi:
-
-* Hvort gögn hafi verið sótt úr cache eða ekki
-* Hversu lengi tók að sækja gögn í sekúndum (hvort heldur sem er úr cache eða með fetch), sjá `./src/time.js`
-
-Formið á þeim ætti að vera:
+The format of this metadata should be:
 
 ```javascript
 {
-  data, // gögn um jarðskjálfta
+  data, // earthquake data
   info: {
     cached: true,
     elapsed: 0.500,
   },
-};
-```
+}
 
-Gögnin skal síðan birta á framenda.
-
-![](./utlit.png)
 
 ### Fetch
 
-Bæði framendi (client) og bakendi (server) munu gera `fetch` köll og mikilvægt er að gera sér fulla grein á muninn á þeim.
+Both the frontend (client) and backend (server) will make fetch calls, and it is crucial to understand the difference between them.
 
-Kóði fyrir framenda er í `./client`, kóði fyrir bakenda er í `./src`.
+Frontend code is located in ./client, and backend code is in ./src.
 
-Framendi á proxy þjónustu bakenda, og bakendi á USGS þjónustu, ef gögn eru ekki í cache.
+The frontend communicates with the backend proxy service, and the backend communicates with the USGS service if the data is not cached.
 
-## Tæki og tól
 
-Gefinn er grunnur, byggður á sýnilausn á verkefni 9 úr vef1. Búið að tengja saman browser-sync og nodemon þ.a. `npm run dev` virkar sem skildi. Það er gert með því að nota browser-sync sem proxy á server sem keyrir þá á port 3001.
-
-Nota skal `node-fetch` á bakenda.
 
 Setja skal upp `redis` og nota til að cachea gögn.
 
